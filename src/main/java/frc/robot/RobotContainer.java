@@ -13,21 +13,20 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private Joystick joystick;
+  Joystick joystick;
+
+  final int FOR_BACK_AXIS = 5;
+  final int LEFT_RIGHT_AXIS = 0;
 
   public RobotContainer() {
     joystick = new Joystick(0);
-
     configureButtonBindings();
   }
 
-  private void configureButtonBindings() {
-
-  }
+  private void configureButtonBindings() {}
 
   
   public Command getAutonomousCommand() {
-   
     return m_autoCommand;
   }
 }
