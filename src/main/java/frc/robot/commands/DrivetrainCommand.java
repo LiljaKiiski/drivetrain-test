@@ -43,7 +43,6 @@ public class DrivetrainCommand extends CommandBase {
         drivetrain.stopAllMotors();
         break;
     }
-
     initialized = true;
   }
  
