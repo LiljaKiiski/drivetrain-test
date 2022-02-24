@@ -9,42 +9,38 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DrivetrainSubsystem extends SubsystemBase {
- 
   TalonFX motorA1;
   TalonFX motorA2;
-
   TalonFX motorB1;
   TalonFX motorB2;
+
+  final double SPEED;
 
   public DrivetrainSubsystem() {
     motorA1 = new TalonFX(0);
     motorA2 = new TalonFX(1);
     motorB1 = new TalonFX(2);
     motorB2 = new TalonFX(3);
+
+    SPEED = 0.2;
   }
 
-  public void moveForwardRight(double speed){
-
+  public void turnRight(){
+    setMotorASpeeds(SPEED);
+    setMotorBSpeeds(-SPEED);
   }
 
-  public void moveForwardLeft(double speed){
-
+  public void turnLeft(){
+    setMotorASpeeds(-SPEED);
+    setMotorBSpeeds(SPEED);
   }
 
-  public void moveBackwardRight(double speed){
-
+  public void moveForward(){
+    setAllMotorSpeeds(SPEED);
   }
 
-  public void moveBackwardLeft(double speed){
-    
-  }
-
-  public void moveForward(double speed){
-    setAllMotorSpeeds(speed);
-  }
-
-  public void moveBackward(double speed){
-    setAllMotorSpeeds(speed);
+  public void moveBackward(){
+    setAllMotorSpeeds(-SPEED);
   }
 
   public void stopAllMotors(){
@@ -52,16 +48,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void setAllMotorSpeeds(double speed){
-    setForwardMotorSpeeds(speed);
-    setBackMotorSpeeds(speed);
+    setMotorASpeeds(speed);
+    setMotorBSpeeds(speed);
   }
 
-  public void setForwardMotorSpeeds(double speed){
+  public void setMotorASpeeds(double speed){
     motorA1.set(ControlMode.PercentOutput, speed);
     motorA2.set(ControlMode.PercentOutput, speed);
   }
 
-  public void setBackMotorSpeeds(double speed){
+  public void setMotorBSpeeds(double speed){
     motorB1.set(ControlMode.PercentOutput, speed);
     motorB2.set(ControlMode.PercentOutput, speed);
   }
