@@ -7,15 +7,19 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DrivetrainCommand;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer robotContainer;
+  private DrivetrainSubsystem drivetrain;
 
   @Override
   public void robotInit() {
-    robotContainer = new RobotContainer();
+    drivetrain = new DrivetrainSubsystem();
+    robotContainer = new RobotContainer(drivetrain);
   }
 
   @Override
@@ -50,24 +54,31 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-     //Right
-     if (robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS) > 0){
-
+    //Right
+    if (robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS) > 0){
+      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.RIGHT);
     }
 
     //Left
     if (robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS) < 0){
-
+      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.LEFT);
     }
 
     //Forward
     if (robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS) < 0){
-
+      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.FORWARD);
     }
 
     //Backward
     if (robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS) > 0){
+      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.BACKWARD);
+    }
 
+    //Stop
+    if (robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS) == 0 &&  
+        robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS) == 0){
+        
+      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.STOP);
     }
   }
 

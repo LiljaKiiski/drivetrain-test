@@ -26,13 +26,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void turnRight(){
-    setMotorASpeeds(SPEED);
-    setMotorBSpeeds(-SPEED);
+    setMotorASpeeds(0);
+    setMotorBSpeeds(SPEED);
   }
 
   public void turnLeft(){
-    setMotorASpeeds(-SPEED);
-    setMotorBSpeeds(SPEED);
+    setMotorASpeeds(SPEED);
+    setMotorBSpeeds(0);
   }
 
   public void moveForward(){

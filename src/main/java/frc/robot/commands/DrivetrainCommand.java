@@ -5,27 +5,46 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class DrivetrainCommand extends CommandBase {
 
-  static enum Type {
-      FORWARD, 
-      BACKWARD, 
-      FORWARD_RIGHT,
-      FORWARD_LEFT,
-      BACKWARD_RIGHT,
-      BACKWARD_LEFT
-    };
+  public static enum Type { FORWARD, BACKWARD, RIGHT, LEFT, STOP };
 
   Type type;
+  DrivetrainSubsystem drivetrain;
+  boolean initialized = false;
 
-  public DrivetrainCommand(Type type) {
+  public DrivetrainCommand(DrivetrainSubsystem drivetrain, Type type) {
     this.type = type;
+    this.drivetrain = drivetrain;
   }
 
   @Override
   public void initialize() {
+    switch (type){
+      case FORWARD:
+        drivetrain.moveForward();
+        break;
 
+      case BACKWARD:
+        drivetrain.moveBackward();
+        break;
+
+      case RIGHT:
+        drivetrain.turnRight();
+        break;
+
+      case LEFT:
+        drivetrain.turnLeft();
+        break;
+
+      case STOP:
+        drivetrain.stopAllMotors();
+        break;
+    }
+
+    initialized = true;
   }
  
   @Override
@@ -38,6 +57,6 @@ public class DrivetrainCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return initialized;
   }
 }
