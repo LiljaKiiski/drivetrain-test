@@ -5,22 +5,26 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  TalonFX motorA1;
-  TalonFX motorA2;
-  TalonFX motorB1;
-  TalonFX motorB2;
+  TalonSRX motorA1;
+  TalonSRX motorA2;
+  TalonSRX motorB1;
+  TalonSRX motorB2;
 
   final double SPEED;
 
   public DrivetrainSubsystem() {
-    motorA1 = new TalonFX(0);
-    motorA2 = new TalonFX(1);
-    motorB1 = new TalonFX(2);
-    motorB2 = new TalonFX(3);
+    motorA1 = new TalonSRX(19);
+    motorA2 = new TalonSRX(7);
+    motorB1 = new TalonSRX(16);
+    motorB2 = new TalonSRX(61);
+
+    motorB1.setInverted(true);
+    motorB2.setInverted(true);
 
     SPEED = 0.2;
   }
@@ -36,11 +40,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void moveForward(){
-    setAllMotorSpeeds(SPEED);
+    setAllMotorSpeeds(-SPEED);
   }
 
   public void moveBackward(){
-    setAllMotorSpeeds(-SPEED);
+    setAllMotorSpeeds(SPEED);
   }
 
   public void stopAllMotors(){

@@ -18,10 +18,7 @@ public class DrivetrainCommand extends CommandBase {
   public DrivetrainCommand(DrivetrainSubsystem drivetrain, Type type) {
     this.type = type;
     this.drivetrain = drivetrain;
-  }
 
-  @Override
-  public void initialize() {
     switch (type){
       case FORWARD:
         drivetrain.moveForward();
@@ -44,6 +41,11 @@ public class DrivetrainCommand extends CommandBase {
         break;
     }
     initialized = true;
+  }
+
+  @Override
+  public void initialize() {
+    
   }
  
   @Override

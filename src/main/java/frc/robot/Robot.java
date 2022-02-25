@@ -20,6 +20,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     drivetrain = new DrivetrainSubsystem();
     robotContainer = new RobotContainer(drivetrain);
+  
+    //new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.FORWARD);
   }
 
   @Override
@@ -36,30 +38,32 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    //Right
-    if (robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS) > 0){
+
+    double axis_lr =robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS);
+    double axis_fb =robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS);
+
+    //Forward
+    if (axis_fb < -0.1){
+      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.BACKWARD);
+    }
+
+    //Backward
+    if (axis_fb > 0.1){
+      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.FORWARD);
+    }
+
+     //Right
+     if (axis_lr > 0.1){
       new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.RIGHT);
     }
 
     //Left
-    if (robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS) < 0){
+    if (axis_lr < -0.1){
       new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.LEFT);
     }
 
-    //Forward
-    if (robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS) < 0){
-      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.FORWARD);
-    }
-
-    //Backward
-    if (robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS) > 0){
-      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.BACKWARD);
-    }
-
     //Stop
-    if (robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS) == 0 &&  
-        robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS) == 0){
-        
+    if (axis_fb < 0.1 && axis_fb > -0.1 && axis_lr < 0.1 && axis_lr > -0.1){
       new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.STOP);
     }
   }
