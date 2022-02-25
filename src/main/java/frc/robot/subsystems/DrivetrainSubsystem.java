@@ -26,7 +26,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     motorB1.setInverted(true);
     motorB2.setInverted(true);
 
-    SPEED = 0.3;
+    SPEED = 0.4;
   }
 
   public void turnRight(){

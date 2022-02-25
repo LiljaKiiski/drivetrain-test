@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.DrivetrainCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -14,11 +15,11 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  Joystick joystick;
-  DrivetrainSubsystem drivetrain;
+  public Joystick joystick;
+  public DrivetrainSubsystem drivetrain;
 
-  final int FOR_BACK_AXIS = 5;
-  final int LEFT_RIGHT_AXIS = 0;
+  public final int FOR_BACK_AXIS = 5;
+  public final int LEFT_RIGHT_AXIS = 0;
 
   public RobotContainer(DrivetrainSubsystem drivetrain) {
     joystick = new Joystick(0);
@@ -27,7 +28,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    
+    drivetrain.setDefaultCommand(new DrivetrainCommand(drivetrain, this));
   }
 
   public Command getAutonomousCommand() {

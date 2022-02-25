@@ -5,42 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class DrivetrainCommand extends CommandBase {
 
-  public static enum Type { FORWARD, BACKWARD, RIGHT, LEFT, STOP };
-
-  Type type;
+  RobotContainer robotContainer;
   DrivetrainSubsystem drivetrain;
-  boolean initialized = false;
 
-  public DrivetrainCommand(DrivetrainSubsystem drivetrain, Type type) {
-    this.type = type;
+  public DrivetrainCommand(DrivetrainSubsystem drivetrain, RobotContainer robotContainer) {
+    this.robotContainer = robotContainer;
     this.drivetrain = drivetrain;
-
-    switch (type){
-      case FORWARD:
-        drivetrain.moveForward();
-        break;
-
-      case BACKWARD:
-        drivetrain.moveBackward();
-        break;
-
-      case RIGHT:
-        drivetrain.turnRight();
-        break;
-
-      case LEFT:
-        drivetrain.turnLeft();
-        break;
-
-      case STOP:
-        drivetrain.stopAllMotors();
-        break;
-    }
-    initialized = true;
+    addRequirements(drivetrain);
   }
 
   @Override
@@ -50,6 +26,33 @@ public class DrivetrainCommand extends CommandBase {
  
   @Override
   public void execute() {
+    double axis_lr = robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS);
+    double axis_fb = robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS);
+
+    //Forward
+    if (axis_fb < -0.1){
+      drivetrain.moveBackward();
+    }
+
+    //Backward
+    if (axis_fb > 0.1){
+      drivetrain.moveForward();
+    }
+
+     //Right
+     if (axis_lr > 0.1){
+      drivetrain.turnRight();
+    }
+
+    //Left
+    if (axis_lr < -0.1){
+      drivetrain.turnLeft();
+    }
+
+    //Stop
+    if (axis_fb < 0.1 && axis_fb > -0.1 && axis_lr < 0.1 && axis_lr > -0.1){
+      drivetrain.stopAllMotors();
+    }
 
   }
  
@@ -58,6 +61,6 @@ public class DrivetrainCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return initialized;
+    return false;
   }
 }

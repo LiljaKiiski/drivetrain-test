@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.DrivetrainCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class Robot extends TimedRobot {
@@ -20,7 +19,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     drivetrain = new DrivetrainSubsystem();
     robotContainer = new RobotContainer(drivetrain);
-
   }
 
   @Override
@@ -37,33 +35,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    double axis_lr =robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS);
-    double axis_fb =robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS);
-
-    //Forward
-    if (axis_fb < -0.1){
-      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.BACKWARD);
-    }
-
-    //Backward
-    if (axis_fb > 0.1){
-      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.FORWARD);
-    }
-
-     //Right
-     if (axis_lr > 0.1){
-      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.RIGHT);
-    }
-
-    //Left
-    if (axis_lr < -0.1){
-      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.LEFT);
-    }
-
-    //Stop
-    if (axis_fb < 0.1 && axis_fb > -0.1 && axis_lr < 0.1 && axis_lr > -0.1){
-      new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.STOP);
-    }
+    
   }
 
   @Override
