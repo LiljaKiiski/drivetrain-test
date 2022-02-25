@@ -20,8 +20,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     drivetrain = new DrivetrainSubsystem();
     robotContainer = new RobotContainer(drivetrain);
-  
-    //new DrivetrainCommand(robotContainer.drivetrain, DrivetrainCommand.Type.FORWARD);
+
   }
 
   @Override
@@ -38,7 +37,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
     double axis_lr =robotContainer.joystick.getRawAxis(robotContainer.LEFT_RIGHT_AXIS);
     double axis_fb =robotContainer.joystick.getRawAxis(robotContainer.FOR_BACK_AXIS);
 

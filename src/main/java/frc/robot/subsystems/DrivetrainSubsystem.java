@@ -26,16 +26,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
     motorB1.setInverted(true);
     motorB2.setInverted(true);
 
-    SPEED = 0.2;
+    SPEED = 0.3;
   }
 
   public void turnRight(){
     setMotorASpeeds(SPEED);
-    setMotorBSpeeds(0);
+    setMotorBSpeeds(-SPEED);
   }
 
   public void turnLeft(){
-    setMotorASpeeds(0);
+    setMotorASpeeds(-SPEED);
     setMotorBSpeeds(SPEED);
   }
 
