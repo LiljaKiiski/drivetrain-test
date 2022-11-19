@@ -5,8 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.JoystickDrive;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -22,8 +25,16 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  public Joystick joystick;
+  public Drivetrain drivetrain;
+
+  private final int FOR_BACK_AXIS = 5;
+  public final int LEFT_RIGHT_AXIS = 0;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    drivetrain = new Drivetrain();
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -34,7 +45,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    drivetrain.setDefaultCommand(new JoystickDrive(drivetrain, this::getHorizontalAxis, this::getVerticalAxis));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -45,4 +58,14 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
   }
+
+  public double getHorizontalAxis(){
+    return joystick.getRawAxis(LEFT_RIGHT_AXIS);
+  }
+
+  public double getVerticalAxis(){
+    return joystick.getRawAxis(FOR_BACK_AXIS);
+  }
+
+
 }
