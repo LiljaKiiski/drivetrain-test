@@ -34,10 +34,8 @@ public class JoystickDrive extends CommandBase {
   @Override
   public void execute() {
     //Get range on joystick axes
-    //Get axis with: horizontal.get
-   // horizontal.get(0);
+    //Get axis with: horizontal.get();
     drivetrain.setSpeeds(vertical.get()+horizontal.get(), vertical.get()-horizontal.get());
-
   }
 
   // Called once the command ends or is interrupted.

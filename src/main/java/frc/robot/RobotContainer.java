@@ -69,6 +69,4 @@ public class RobotContainer {
   public double getVerticalAxis(){
     return joystick.getRawAxis(FOR_BACK_AXIS)*0.4;
   }
-
-
 }
