@@ -19,9 +19,9 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
     gyro = new AHRS();
     leftFront = new TalonFX(0);
-    leftBack = new TalonFX(0);
-    rightFront = new TalonFX(0);
-    rightBack = new TalonFX(0);
+    leftBack = new TalonFX(2);
+    rightFront = new TalonFX(3);
+    rightBack = new TalonFX(1);
     leftFront.setInverted(TalonFXInvertType.CounterClockwise);
     leftBack.setInverted(TalonFXInvertType.CounterClockwise);
     rightFront.setInverted(TalonFXInvertType.Clockwise);
@@ -36,15 +36,17 @@ public class Drivetrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public void log(){
- 
+    SmartDashboard.putNumber("Output", leftFront.getMotorOutputPercent());
+    SmartDashboard.putNumber("Output",rightFront.getMotorOutputPercent());
   }
 
   public void setSpeeds(double left, double right){
-    
+    leftFront.set(ControlMode.PercentOutput, left);
+    rightFront.set(ControlMode.PercentOutput, right);
   }
 
   public void stopMotors(){
-    
+    setSpeeds(0, 0);
   }
 
   //Run motors forward at certain speed

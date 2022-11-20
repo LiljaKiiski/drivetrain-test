@@ -28,15 +28,15 @@ public class JoystickDrive extends CommandBase {
   @Override
   public void initialize() {
     
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //Get range on joystick axes
-    //Get axis with: horizontal.get();
-
+    //Get axis with: horizontal.get
+   // horizontal.get(0);
+    drivetrain.setSpeeds(vertical.get()+horizontal.get(), vertical.get()-horizontal.get());
 
   }
 
